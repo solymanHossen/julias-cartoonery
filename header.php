@@ -41,7 +41,7 @@ if (!defined('ABSPATH')) {
                     <?php echo esc_html(substr(get_bloginfo('name'), 0, 2)); ?>
                 </div>
                 <h1 class="font-['Bubblegum_Sans'] text-2xl md:text-3xl tracking-wide bg-gradient-to-r from-[#FFB7C5] to-[#A8D8EA] dark:from-pink-400 dark:to-sky-400 bg-clip-text text-transparent hidden sm:block">
-                    <?php bloginfo('name'); ?>
+                    <?php echo esc_html(get_bloginfo('name')); ?>
                 </h1>
             <?php endif; ?>
         </a>
@@ -74,7 +74,7 @@ if (!defined('ABSPATH')) {
 
             <a href="<?php echo esc_url(function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart')); ?>" class="relative p-2 text-gray-500 dark:text-gray-400 hover:text-[#FFB7C5] dark:hover:text-pink-400 transition-colors group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                <?php if(function_exists('WC') && WC()->cart->get_cart_contents_count() > 0): ?>
+                <?php if(class_exists('WooCommerce') && function_exists('WC') && isset(WC()->cart) && WC()->cart->get_cart_contents_count() > 0): ?>
                     <span class="absolute -top-1 -right-1 bg-red-400 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
                         <?php echo esc_html(WC()->cart->get_cart_contents_count()); ?>
                     </span>
