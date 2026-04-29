@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
 $theme_includes = [
     '/inc/setup.php',
     '/inc/enqueue.php',
+    '/inc/cpt.php',
+    '/inc/woocommerce.php',
 ];
 
 foreach ($theme_includes as $file) {
