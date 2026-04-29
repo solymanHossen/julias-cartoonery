@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
                 </p>
             </div>
             <div>
-                <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg">Quick Links</h3>
+                <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg"><?php esc_html_e('Quick Links', 'julias-cartoonery'); ?></h3>
                 <?php
                 wp_nav_menu(array(
                     'theme_location' => 'footer-1',
@@ -37,7 +37,7 @@ if (!defined('ABSPATH')) {
                 ?>
             </div>
             <div>
-                <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg">Support</h3>
+                <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg"><?php esc_html_e('Support', 'julias-cartoonery'); ?></h3>
                 <?php
                 wp_nav_menu(array(
                     'theme_location' => 'footer-2',
@@ -49,11 +49,17 @@ if (!defined('ABSPATH')) {
                 ?>
             </div>
         </div>
-        <div
-            class="text-center text-gray-400 dark:text-gray-600 text-sm border-t border-gray-100 dark:border-slate-800 pt-8">
-            &copy;
-            <?php echo date('Y'); ?>
-            <?php bloginfo('name'); ?>. All rights reserved.
+        <div class="flex flex-col md:flex-row justify-between items-center border-t border-gray-100 dark:border-slate-800 pt-8 mt-8">
+            <div class="text-gray-400 dark:text-gray-600 text-sm mb-4 md:mb-0">
+                <?php echo wp_kses_post(get_theme_mod('jc_copyright_text', '&copy; ' . date('Y') . ' ' . get_bloginfo('name') . '. All rights reserved.')); ?>
+            </div>
+            
+            <?php $youtube_link = get_theme_mod('jc_social_youtube', 'https://youtube.com'); ?>
+            <?php if (!empty($youtube_link)): ?>
+            <a href="<?php echo esc_url($youtube_link); ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 dark:text-gray-600 hover:text-red-500 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+            </a>
+            <?php endif; ?>
         </div>
     </div>
 </footer>
@@ -68,7 +74,7 @@ if (!defined('ABSPATH')) {
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
                 </svg>
-                Chat with Julia
+                <?php esc_html_e('Chat with Julia', 'julias-cartoonery'); ?>
             </div>
             <button id="jc-chat-close" class="hover:bg-white/20 p-1 rounded transition-colors"><svg
                     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -81,13 +87,13 @@ if (!defined('ABSPATH')) {
             <div class="flex justify-start">
                 <div
                     class="px-4 py-2 rounded-2xl max-w-[80%] text-sm shadow-sm bg-white dark:bg-slate-700 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-slate-600 rounded-bl-sm">
-                    Hi there! I'm Julia. Need help finding a toy?
+                    <?php esc_html_e('Hi there! I\'m Julia. Need help finding a toy?', 'julias-cartoonery'); ?>
                 </div>
             </div>
         </div>
         <form id="jc-chat-form"
             class="p-3 bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700 flex gap-2">
-            <input type="text" id="jc-chat-input" placeholder="Type a message..."
+            <input type="text" id="jc-chat-input" placeholder="<?php esc_attr_e('Type a message...', 'julias-cartoonery'); ?>"
                 class="flex-1 bg-gray-100 dark:bg-slate-900 dark:text-white rounded-full px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-[#FFB7C5] dark:focus:ring-pink-500 transition-shadow" />
             <button type="submit"
                 class="bg-[#FFB7C5] dark:bg-pink-500 text-white p-2 rounded-full hover:bg-pink-400 dark:hover:bg-pink-600 transition-colors">

@@ -13,6 +13,10 @@ $theme_includes = [
     '/inc/enqueue.php',
     '/inc/cpt.php',
     '/inc/woocommerce.php',
+    '/inc/plugins.php',
+    '/inc/customizer.php',
+    '/inc/demo-import.php',
+    '/inc/seeder.php',
 ];
 
 foreach ($theme_includes as $file) {

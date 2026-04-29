@@ -47,3 +47,60 @@ function jc_theme_setup()
     ));
 }
 add_action('after_setup_theme', 'jc_theme_setup');
+
+/**
+ * Setup default pages on theme activation
+ */
+function jc_create_default_pages() {
+    $pages_to_create = array(
+        'Home' => array(
+            'content'  => '',
+            'template' => 'front-page.php',
+            'is_front' => true
+        ),
+        'Playground' => array(
+            'content'  => '',
+            'template' => 'template-games.php',
+            'is_front' => false
+        ),
+        'Characters' => array(
+            'content'  => '',
+            'template' => 'template-characters.php',
+            'is_front' => false
+        ),
+        'Create AI' => array(
+            'content'  => '',
+            'template' => 'template-create.php',
+            'is_front' => false
+        )
+    );
+
+    foreach ($pages_to_create as $title => $page_data) {
+        $page_check = get_page_by_title($title);
+        if (!isset($page_check->ID)) {
+            $page_id = wp_insert_post(array(
+                'post_title'     => $title,
+                'post_content'   => $page_data['content'],
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+            ));
+
+            if ($page_id && !is_wp_error($page_id)) {
+                if (!empty($page_data['template']) && $page_data['template'] !== 'front-page.php') {
+                    update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+                }
+                if ($page_data['is_front']) {
+                    update_option('show_on_front', 'page');
+                    update_option('page_on_front', $page_id);
+                }
+            }
+        } else {
+            // Ensure Home page is set as front page even if it exists
+            if ($page_data['is_front']) {
+                update_option('show_on_front', 'page');
+                update_option('page_on_front', $page_check->ID);
+            }
+        }
+    }
+}
+add_action('after_switch_theme', 'jc_create_default_pages');

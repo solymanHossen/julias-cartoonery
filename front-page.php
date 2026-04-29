@@ -12,28 +12,26 @@ get_header(); ?>
                 <div class="flex-1 text-center lg:text-left space-y-6 z-10">
                     <span
                         class="inline-block py-1 px-4 rounded-full bg-[#B5EAD7] dark:bg-emerald-900/50 text-teal-800 dark:text-emerald-300 font-bold text-sm mb-2 shadow-sm">
-                        Fun & Learning Combined
+                        <?php esc_html_e('Fun & Learning Combined', 'julias-cartoonery'); ?>
                     </span>
                     <h1
                         class="font-['Bubblegum_Sans'] text-5xl lg:text-7xl leading-tight text-gray-800 dark:text-gray-100">
-                        Where <span class="text-[#FFB7C5] dark:text-pink-400">Cartoons</span> Meet <span
-                            class="text-[#A8D8EA] dark:text-sky-400">Playtime!</span>
+                        <?php esc_html_e('Where', 'julias-cartoonery'); ?> <span class="text-[#FFB7C5] dark:text-pink-400"><?php esc_html_e('Cartoons', 'julias-cartoonery'); ?></span> <?php esc_html_e('Meet', 'julias-cartoonery'); ?> <span
+                            class="text-[#A8D8EA] dark:text-sky-400"><?php esc_html_e('Playtime!', 'julias-cartoonery'); ?></span>
                     </h1>
                     <p class="text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                        Discover the softest toys, read magical stories, and watch engaging educational cartoons
-                        designed specifically for curious little minds.
+                        <?php esc_html_e('Discover the softest toys, read magical stories, and watch engaging educational cartoons designed specifically for curious little minds.', 'julias-cartoonery'); ?>
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
                         <a href="<?php echo esc_url(home_url('/shop')); ?>"
-                            class="w-full sm:w-auto text-lg py-4 px-8 bg-[#FFB7C5] text-white hover:bg-pink-400 dark:bg-pink-500 dark:hover:bg-pink-600 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md">Shop
-                            Now</a>
+                            class="w-full sm:w-auto text-lg py-4 px-8 bg-[#FFB7C5] text-white hover:bg-pink-400 dark:bg-pink-500 dark:hover:bg-pink-600 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md"><?php esc_html_e('Shop Now', 'julias-cartoonery'); ?></a>
                         <a href="#videos-section"
                             class="w-full sm:w-auto text-lg py-4 px-8 bg-white dark:bg-slate-800 border-2 border-[#FFB7C5] text-pink-500 hover:bg-pink-50 dark:border-pink-500 dark:text-pink-400 dark:hover:bg-slate-700 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <polygon points="5 3 19 12 5 21 5 3" />
-                            </svg> Watch Videos
+                            </svg> <?php esc_html_e('Watch Videos', 'julias-cartoonery'); ?>
                         </a>
                     </div>
                 </div>
@@ -66,19 +64,17 @@ get_header(); ?>
                         d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
                     <path d="m10 15 5-3-5-3z" />
                 </svg>
-                Julia's Channel
+                <?php esc_html_e('Julia\'s Channel', 'julias-cartoonery'); ?>
             </h2>
-            <p class="text-gray-500 dark:text-gray-400 max-w-xl">Watch our latest fun and educational videos. Don't
-                forget to subscribe!</p>
+            <p class="text-gray-500 dark:text-gray-400 max-w-xl"><?php esc_html_e('Watch our latest fun and educational videos. Don\'t forget to subscribe!', 'julias-cartoonery'); ?></p>
         </div>
 
         <div class="flex justify-center mb-8">
             <div class="bg-gray-100 dark:bg-slate-800 p-1 rounded-full flex gap-1">
                 <button id="tab-btn-videos"
-                    class="px-6 py-2 rounded-full font-bold transition-all bg-white dark:bg-slate-700 shadow-sm text-[#FFB7C5] dark:text-pink-400">Latest
-                    Videos</button>
+                    class="px-6 py-2 rounded-full font-bold transition-all bg-white dark:bg-slate-700 shadow-sm text-[#FFB7C5] dark:text-pink-400"><?php esc_html_e('Latest Videos', 'julias-cartoonery'); ?></button>
                 <button id="tab-btn-shorts"
-                    class="px-6 py-2 rounded-full font-bold transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Shorts</button>
+                    class="px-6 py-2 rounded-full font-bold transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"><?php esc_html_e('Shorts', 'julias-cartoonery'); ?></button>
             </div>
         </div>
 
@@ -104,7 +100,7 @@ get_header(); ?>
                 }
                 wp_reset_postdata();
             } else {
-                echo '<p class="text-gray-500">No videos found.</p>';
+                echo '<p class="text-gray-500">' . esc_html__('No videos found.', 'julias-cartoonery') . '</p>';
             }
             ?>
         </div>
@@ -131,7 +127,7 @@ get_header(); ?>
                 }
                 wp_reset_postdata();
             } else {
-                echo '<p class="text-gray-500">No shorts found.</p>';
+                echo '<p class="text-gray-500">' . esc_html__('No shorts found.', 'julias-cartoonery') . '</p>';
             }
             ?>
         </div>
@@ -141,13 +137,12 @@ get_header(); ?>
         <div class="container mx-auto px-4 lg:px-8">
             <div class="flex justify-between items-end mb-10">
                 <div>
-                    <h2 class="font-['Bubblegum_Sans'] text-4xl text-gray-800 dark:text-gray-100 mb-2">Favorite Toys
-                    </h2>
-                    <p class="text-gray-500 dark:text-gray-400">Handpicked items your little ones will love.</p>
+                    <h2 class="font-['Bubblegum_Sans'] text-4xl text-gray-800 dark:text-gray-100 mb-2"><?php esc_html_e('Favorite Toys', 'julias-cartoonery'); ?></h2>
+                    <p class="text-gray-500 dark:text-gray-400"><?php esc_html_e('Handpicked items your little ones will love.', 'julias-cartoonery'); ?></p>
                 </div>
                 <a href="<?php echo esc_url(home_url('/shop')); ?>"
                     class="hidden sm:flex items-center gap-2 text-[#A8D8EA] dark:text-sky-400 font-bold hover:text-sky-500 dark:hover:text-sky-300 transition-colors">
-                    View All <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    <?php esc_html_e('View All', 'julias-cartoonery'); ?> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="m9 18 6-6-6-6" />
@@ -172,14 +167,13 @@ get_header(); ?>
             </div>
             <a href="<?php echo esc_url(home_url('/shop')); ?>"
                 class="block w-full sm:hidden mt-8 py-3 text-center text-[#A8D8EA] dark:text-sky-400 font-bold border-2 border-[#A8D8EA] dark:border-sky-400 rounded-full">
-                View All Toys
+                <?php esc_html_e('View All Toys', 'julias-cartoonery'); ?>
             </a>
         </div>
     </section>
 
     <section class="container mx-auto px-4 lg:px-8">
-        <h2 class="font-['Bubblegum_Sans'] text-4xl text-gray-800 dark:text-gray-100 mb-10 text-center">Latest from the
-            Blog</h2>
+        <h2 class="font-['Bubblegum_Sans'] text-4xl text-gray-800 dark:text-gray-100 mb-10 text-center"><?php esc_html_e('Latest from the Blog', 'julias-cartoonery'); ?></h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <?php
             $blog_query = new WP_Query(array('post_type' => 'post', 'posts_per_page' => 3));
