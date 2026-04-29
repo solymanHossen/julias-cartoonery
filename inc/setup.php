@@ -31,5 +31,19 @@ function jc_theme_setup()
         'style',
         'script',
     ));
+
+    // Custom Logo support
+    add_theme_support('custom-logo', array(
+        'height'      => 250,
+        'width'       => 250,
+        'flex-width'  => true,
+        'flex-height' => true,
+    ));
+
+    // Register Navigation Menus
+    register_nav_menus(array(
+        'primary' => esc_html__('Primary Menu', 'julias-cartoonery'),
+        'footer'  => esc_html__('Footer Menu', 'julias-cartoonery'),
+    ));
 }
 add_action('after_setup_theme', 'jc_theme_setup');
