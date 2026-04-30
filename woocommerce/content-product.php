@@ -21,12 +21,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 <div class="bg-white dark:bg-slate-800 rounded-3xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-2 transition-transform duration-300 cursor-pointer border border-gray-50 dark:border-slate-700 flex flex-col h-full group" onclick="window.location.href='<?php the_permalink(); ?>'">
     <div class="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-gray-50 dark:bg-slate-700">
         <?php echo jc_get_product_thumbnail_html($product->get_id(), 'woocommerce_thumbnail', 'w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform duration-500'); ?>
-        <!-- Heart/Wishlist Placeholder -->
-        <button onclick="event.stopPropagation();" class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur rounded-full text-gray-400 dark:text-gray-300 hover:text-red-400 transition-colors z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-            </svg>
-        </button>
+        <?php echo function_exists('jc_get_wishlist_button_html') ? jc_get_wishlist_button_html($product->get_id(), 'top-3 right-3 p-2 bg-white/80 dark:bg-slate-800/80') : ''; ?>
     </div>
     
     <div class="flex flex-col flex-grow">

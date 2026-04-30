@@ -32,8 +32,8 @@ if (!defined('ABSPATH')) {
 <body <?php body_class("min-h-screen bg-[#fafafc] dark:bg-slate-900 font-['Nunito'] text-slate-800 dark:text-slate-200 flex flex-col overflow-x-hidden selection:bg-[#FFB7C5] selection:text-white transition-colors duration-500"); ?>>
 <?php wp_body_open(); ?>
 
-<header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border-b border-[#FFB7C5]/20 dark:border-slate-800 transition-colors duration-500">
-    <div class="container mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
+<header class="sticky top-0 z-40 bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl shadow-sm border-b border-[#FFB7C5]/20 dark:border-slate-800 transition-colors duration-500">
+    <div class="container mx-auto px-4 lg:px-8 py-4 flex items-center justify-between gap-4">
         
         <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 cursor-pointer transition-transform hover:scale-105">
             <?php if (has_custom_logo()) : ?>
@@ -72,8 +72,11 @@ if (!defined('ABSPATH')) {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </button>
 
-            <a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="hidden md:block relative p-2 text-gray-500 dark:text-gray-400 hover:text-[#FFB7C5] dark:hover:text-pink-400 transition-colors">
+            <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('wishlist') : home_url('/wishlist')); ?>" class="hidden md:block relative p-2 text-gray-500 dark:text-gray-400 hover:text-[#FFB7C5] dark:hover:text-pink-400 transition-colors" aria-label="<?php esc_attr_e('Wishlist', 'julias-cartoonery'); ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                <span class="js-jc-wishlist-count absolute -top-1 -right-1 bg-[#FFB7C5] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full <?php echo function_exists('jc_get_wishlist_count') && jc_get_wishlist_count() > 0 ? '' : 'hidden'; ?>">
+                    <?php echo esc_html(function_exists('jc_get_wishlist_count') ? jc_get_wishlist_count() : 0); ?>
+                </span>
             </a>
 
             <button type="button" data-jc-mini-cart-toggle class="relative p-2 text-gray-500 dark:text-gray-400 hover:text-[#FFB7C5] dark:hover:text-pink-400 transition-colors group" aria-label="<?php esc_attr_e('Open mini cart', 'julias-cartoonery'); ?>">
@@ -83,7 +86,7 @@ if (!defined('ABSPATH')) {
                 </span>
             </button>
 
-            <a href="<?php echo esc_url(wp_login_url()); ?>" class="p-2 text-gray-500 dark:text-gray-400 hover:text-[#B5EAD7] dark:hover:text-emerald-400 transition-colors">
+            <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url()); ?>" class="p-2 text-gray-500 dark:text-gray-400 hover:text-[#B5EAD7] dark:hover:text-emerald-400 transition-colors hidden sm:block" aria-label="<?php esc_attr_e('My account', 'julias-cartoonery'); ?>">
                 <?php if (is_user_logged_in()) : 
                     $current_user = wp_get_current_user();
                     $initial = strtoupper(substr($current_user->display_name, 0, 1));
@@ -138,6 +141,17 @@ if (!defined('ABSPATH')) {
             <button id="jc-mobile-menu-close" class="p-2 bg-gray-100 dark:bg-slate-700 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
             </button>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url()); ?>" class="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-3 text-center">
+                <div class="text-xs uppercase tracking-wider text-[#B5EAD7] dark:text-emerald-300 font-bold"><?php esc_html_e('Account', 'julias-cartoonery'); ?></div>
+                <div class="mt-1 font-bold text-gray-800 dark:text-gray-100"><?php esc_html_e('Profile', 'julias-cartoonery'); ?></div>
+            </a>
+            <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('wishlist') : home_url('/wishlist')); ?>" class="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-3 text-center relative">
+                <div class="text-xs uppercase tracking-wider text-[#FFB7C5] dark:text-pink-300 font-bold"><?php esc_html_e('Wishlist', 'julias-cartoonery'); ?></div>
+                <div class="mt-1 font-bold text-gray-800 dark:text-gray-100"><?php esc_html_e('Saved', 'julias-cartoonery'); ?></div>
+                <span class="js-jc-wishlist-count absolute -top-2 -right-2 bg-[#FFB7C5] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full <?php echo function_exists('jc_get_wishlist_count') && jc_get_wishlist_count() > 0 ? '' : 'hidden'; ?>"><?php echo esc_html(function_exists('jc_get_wishlist_count') ? jc_get_wishlist_count() : 0); ?></span>
+            </a>
         </div>
         <div class="flex flex-col gap-2 flex-grow overflow-y-auto">
             <?php

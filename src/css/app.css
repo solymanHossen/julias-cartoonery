@@ -3,3 +3,25 @@
 @source "../../**/*.php";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+  .jc-account-tab {
+    @apply block rounded-[24px] px-4 py-3 font-bold text-gray-600 dark:text-gray-300 transition-colors border border-transparent;
+  }
+
+  .jc-account-tab:hover {
+    @apply bg-gray-50 dark:bg-slate-900/40 text-[#FFB7C5] dark:text-pink-300;
+  }
+
+  .jc-account-tab.is-active {
+    @apply bg-[#FFB7C5]/10 dark:bg-pink-500/20 text-[#FFB7C5] dark:text-pink-300 border-[#FFB7C5]/20 dark:border-pink-500/30;
+  }
+
+  .jc-account-badge {
+    @apply inline-flex items-center justify-center ml-2 min-w-5 h-5 rounded-full bg-[#A8D8EA] text-white text-[10px] font-bold px-1;
+  }
+
+  .jc-account-section {
+    @apply space-y-6;
+  }
+}

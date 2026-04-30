@@ -42,8 +42,9 @@ function jc_theme_setup()
 
     // Register Navigation Menus
     register_nav_menus(array(
-        'primary' => esc_html__('Primary Menu', 'julias-cartoonery'),
-        'footer'  => esc_html__('Footer Menu', 'julias-cartoonery'),
+        'primary'  => esc_html__('Primary Menu', 'julias-cartoonery'),
+        'footer-1' => esc_html__('Footer Menu - Column 1', 'julias-cartoonery'),
+        'footer-2' => esc_html__('Footer Menu - Column 2', 'julias-cartoonery'),
     ));
 }
 add_action('after_setup_theme', 'jc_theme_setup');
@@ -57,6 +58,16 @@ function jc_create_default_pages() {
             'content'  => '',
             'template' => 'front-page.php',
             'is_front' => true
+        ),
+        'My Account' => array(
+            'content'  => '[woocommerce_my_account]',
+            'template' => '',
+            'is_front' => false
+        ),
+        'Wishlist' => array(
+            'content'  => '[jc_wishlist]',
+            'template' => 'template-wishlist.php',
+            'is_front' => false
         ),
         'Playground' => array(
             'content'  => '',
@@ -89,6 +100,9 @@ function jc_create_default_pages() {
                 if (!empty($page_data['template']) && $page_data['template'] !== 'front-page.php') {
                     update_post_meta($page_id, '_wp_page_template', $page_data['template']);
                 }
+                if ('My Account' === $title) {
+                    update_option('woocommerce_myaccount_page_id', $page_id);
+                }
                 if ($page_data['is_front']) {
                     update_option('show_on_front', 'page');
                     update_option('page_on_front', $page_id);
@@ -96,6 +110,9 @@ function jc_create_default_pages() {
             }
         } else {
             // Ensure Home page is set as front page even if it exists
+            if ('My Account' === $title) {
+                update_option('woocommerce_myaccount_page_id', $page_check->ID);
+            }
             if ($page_data['is_front']) {
                 update_option('show_on_front', 'page');
                 update_option('page_on_front', $page_check->ID);
@@ -104,3 +121,13 @@ function jc_create_default_pages() {
     }
 }
 add_action('after_switch_theme', 'jc_create_default_pages');
+
+function jc_maybe_create_default_pages() {
+    if (get_option('jc_default_pages_initialized')) {
+        return;
+    }
+
+    jc_create_default_pages();
+    update_option('jc_default_pages_initialized', true);
+}
+add_action('init', 'jc_maybe_create_default_pages');

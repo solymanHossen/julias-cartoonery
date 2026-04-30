@@ -15,38 +15,48 @@ if (!defined('ABSPATH')) {
     </div>
 
     <div class="container mx-auto px-4 lg:px-8 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div class="col-span-1 md:col-span-2">
-                <h2 class="font-['Bubblegum_Sans'] text-3xl text-[#FFB7C5] dark:text-pink-400 mb-4">
-                    <?php bloginfo('name'); ?>
-                </h2>
-                <p class="text-gray-500 dark:text-gray-400 mb-6 max-w-sm leading-relaxed">
-                    <?php bloginfo('description'); ?>
-                </p>
-            </div>
-            <div>
-                <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg"><?php esc_html_e('Quick Links', 'julias-cartoonery'); ?></h3>
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'footer-1',
-                    'fallback_cb' => false,
-                    'menu_class' => 'space-y-3 text-gray-500 dark:text-gray-400',
-                    'link_before' => '<span class="hover:text-[#A8D8EA] dark:hover:text-sky-400 cursor-pointer transition-colors">',
-                    'link_after' => '</span>'
-                ));
-                ?>
-            </div>
-            <div>
-                <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg"><?php esc_html_e('Support', 'julias-cartoonery'); ?></h3>
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'footer-2',
-                    'fallback_cb' => false,
-                    'menu_class' => 'space-y-3 text-gray-500 dark:text-gray-400',
-                    'link_before' => '<span class="hover:text-[#A8D8EA] dark:hover:text-sky-400 cursor-pointer transition-colors">',
-                    'link_after' => '</span>'
-                ));
-                ?>
+        <div class="max-w-6xl mx-auto rounded-[32px] border border-gray-100 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur-md shadow-[0_20px_60px_rgba(15,23,42,.06)] p-8 lg:p-10 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-[#FFB7C5] flex items-center justify-center text-white font-['Bubblegum_Sans'] text-2xl">JC</div>
+                        <h2 class="font-['Bubblegum_Sans'] text-3xl text-[#FFB7C5] dark:text-pink-400">
+                            <?php bloginfo('name'); ?>
+                        </h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6 max-w-sm leading-relaxed">
+                        <?php bloginfo('description'); ?>
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <?php foreach (array('Shop', 'Stories', 'Characters', 'Wishlist') as $label) : ?>
+                            <span class="px-4 py-2 rounded-full bg-[#FFB7C5]/10 dark:bg-pink-500/20 text-[#FFB7C5] dark:text-pink-300 text-sm font-bold"><?php echo esc_html($label); ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg"><?php esc_html_e('Quick Links', 'julias-cartoonery'); ?></h3>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer-1',
+                        'fallback_cb' => 'jc_footer_quick_links_fallback',
+                        'menu_class' => 'space-y-3 text-gray-500 dark:text-gray-400',
+                        'link_before' => '<span class="hover:text-[#A8D8EA] dark:hover:text-sky-400 cursor-pointer transition-colors">',
+                        'link_after' => '</span>'
+                    ));
+                    ?>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 dark:text-gray-200 mb-4 text-lg"><?php esc_html_e('Support', 'julias-cartoonery'); ?></h3>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer-2',
+                        'fallback_cb' => 'jc_footer_support_links_fallback',
+                        'menu_class' => 'space-y-3 text-gray-500 dark:text-gray-400',
+                        'link_before' => '<span class="hover:text-[#A8D8EA] dark:hover:text-sky-400 cursor-pointer transition-colors">',
+                        'link_after' => '</span>'
+                    ));
+                    ?>
+                </div>
             </div>
         </div>
         <div class="flex flex-col md:flex-row justify-between items-center border-t border-gray-100 dark:border-slate-800 pt-8 mt-8">

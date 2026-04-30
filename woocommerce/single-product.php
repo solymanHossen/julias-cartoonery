@@ -20,10 +20,7 @@ get_header('shop'); ?>
         <div id="product-<?php the_ID(); ?>" <?php wc_product_class('bg-white dark:bg-slate-800 rounded-[40px] p-6 lg:p-12 shadow-sm border border-gray-50 dark:border-slate-700 flex flex-col lg:flex-row gap-12 mb-12', $product); ?>>
             
             <div class="flex-1 relative">
-                <!-- Wishlist placeholder -->
-                <button class="absolute top-4 right-4 p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur rounded-full text-gray-400 hover:text-red-400 shadow-md transition-colors z-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                </button>
+                <?php echo function_exists('jc_get_wishlist_button_html') ? jc_get_wishlist_button_html($product->get_id(), 'top-4 right-4 p-3 bg-white/90 dark:bg-slate-800/90') : ''; ?>
                 
                 <div class="aspect-square rounded-3xl overflow-hidden bg-gray-50 dark:bg-slate-700 mb-4 relative">
                     <?php 
@@ -92,6 +89,23 @@ get_header('shop'); ?>
                 <div class="mt-auto space-y-6">
                     <div class="space-y-4">
                         <?php woocommerce_template_single_add_to_cart(); ?>
+
+                        <?php if ( is_product() && $product && $product->is_type('simple') ) : ?>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var form = document.querySelector('form.cart');
+                                    if (!form) return;
+                                    var submit = form.querySelector('button[type="submit"], input[type="submit"]');
+                                    if (!submit) return;
+                                    var addToCartInput = form.querySelector('input[name="add-to-cart"]');
+                                    var productId = addToCartInput ? addToCartInput.value : '';
+                                    if (!productId) return;
+                                    submit.setAttribute('data-jc-add-to-cart', '');
+                                    submit.setAttribute('data-product-id', productId);
+                                    submit.addEventListener('click', function(e) { e.stopPropagation(); });
+                                });
+                            </script>
+                        <?php endif; ?>
 
                         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                             <?php if ($product->is_type('simple')) : ?>

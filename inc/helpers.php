@@ -153,3 +153,41 @@ if (!function_exists('jc_render_cart_summary_html')) {
     }
 }
 
+if (!function_exists('jc_footer_links_markup')) {
+    function jc_footer_links_markup($links) {
+        ob_start();
+        echo '<ul class="space-y-3 text-gray-500 dark:text-gray-400">';
+        foreach ($links as $link) {
+            echo '<li><a class="hover:text-[#A8D8EA] dark:hover:text-sky-400 transition-colors" href="' . esc_url($link['url']) . '">' . esc_html($link['label']) . '</a></li>';
+        }
+        echo '</ul>';
+
+        return ob_get_clean();
+    }
+}
+
+if (!function_exists('jc_footer_quick_links_fallback')) {
+    function jc_footer_quick_links_fallback() {
+        echo jc_footer_links_markup(array(
+            array('label' => __('Shop Toys', 'julias-cartoonery'), 'url' => home_url('/shop')),
+            array('label' => __('Watch Cartoons', 'julias-cartoonery'), 'url' => home_url('/#videos-section')),
+            array('label' => __('Read Stories', 'julias-cartoonery'), 'url' => home_url('/stories')),
+            array('label' => __('Free Characters', 'julias-cartoonery'), 'url' => home_url('/characters')),
+            array('label' => __('Play Games', 'julias-cartoonery'), 'url' => home_url('/games')),
+        ));
+    }
+}
+
+if (!function_exists('jc_footer_support_links_fallback')) {
+    function jc_footer_support_links_fallback() {
+        echo jc_footer_links_markup(array(
+            array('label' => __('My Account', 'julias-cartoonery'), 'url' => function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url()),
+            array('label' => __('Wishlist', 'julias-cartoonery'), 'url' => function_exists('wc_get_page_permalink') ? wc_get_page_permalink('wishlist') : home_url('/wishlist')),
+            array('label' => __('Contact Us', 'julias-cartoonery'), 'url' => home_url('/contact')),
+            array('label' => __('Shipping & Delivery', 'julias-cartoonery'), 'url' => home_url('/shipping')),
+            array('label' => __('Returns', 'julias-cartoonery'), 'url' => home_url('/returns')),
+            array('label' => __('Privacy Policy', 'julias-cartoonery'), 'url' => home_url('/privacy-policy')),
+        ));
+    }
+}
+

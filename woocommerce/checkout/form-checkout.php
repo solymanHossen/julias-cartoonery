@@ -13,8 +13,9 @@ do_action('woocommerce_before_main_content');
 ?>
 
 <div class="container mx-auto px-4 lg:px-8 py-12 animate-in fade-in">
-    <div class="text-center mb-12">
-        <h1 class="font-['Bubblegum_Sans'] text-5xl text-gray-800 dark:text-gray-100 mb-4"><?php esc_html_e('Checkout Details', 'julias-cartoonery'); ?></h1>
+    <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#A8D8EA]/15 dark:bg-sky-900/30 text-[#A8D8EA] dark:text-sky-300 font-bold text-sm uppercase tracking-wider"><?php esc_html_e('Secure checkout', 'julias-cartoonery'); ?></span>
+        <h1 class="font-['Bubblegum_Sans'] text-5xl text-gray-800 dark:text-gray-100 mt-4 mb-4"><?php esc_html_e('Checkout Details', 'julias-cartoonery'); ?></h1>
         <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"><?php esc_html_e('Complete your delivery details and payment securely.', 'julias-cartoonery'); ?></p>
     </div>
 
@@ -48,7 +49,17 @@ do_action('woocommerce_before_main_content');
                 </div>
 
                 <div class="flex-1">
-                    <div class="bg-white dark:bg-slate-800 rounded-[32px] p-6 shadow-sm border border-gray-50 dark:border-slate-700 sticky top-28">
+                    <div class="bg-white dark:bg-slate-800 rounded-[32px] p-6 shadow-sm border border-gray-50 dark:border-slate-700 sticky top-28 space-y-6">
+                        <div class="rounded-[28px] border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-4 flex items-center justify-between gap-4">
+                            <div>
+                                <div class="text-xs font-bold tracking-wider uppercase text-[#A8D8EA] dark:text-sky-300"><?php esc_html_e('Step 1', 'julias-cartoonery'); ?></div>
+                                <div class="font-bold text-gray-800 dark:text-gray-100"><?php esc_html_e('Review your order', 'julias-cartoonery'); ?></div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold tracking-wider uppercase text-[#B5EAD7] dark:text-emerald-300"><?php esc_html_e('Step 2', 'julias-cartoonery'); ?></div>
+                                <div class="font-bold text-gray-800 dark:text-gray-100"><?php esc_html_e('Confirm payment', 'julias-cartoonery'); ?></div>
+                            </div>
+                        </div>
                         <?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
                         <h2 class="font-bold text-xl text-gray-800 dark:text-gray-100 mb-6"><?php esc_html_e('Order Summary', 'julias-cartoonery'); ?></h2>
                         <?php do_action('woocommerce_checkout_before_order_review'); ?>

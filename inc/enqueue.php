@@ -39,10 +39,15 @@ function jc_enqueue_assets()
         'jc-main-script',
         'jcTheme',
         array(
-            'ajaxUrl'   => admin_url('admin-ajax.php'),
-            'nonce'     => wp_create_nonce('jc_cart_nonce'),
-            'cartCount' => jc_get_cart_count(),
-            'cartTotal' => jc_get_cart_total(),
+            'ajaxUrl'       => admin_url('admin-ajax.php'),
+            'cartNonce'     => wp_create_nonce('jc_cart_nonce'),
+            'wishlistNonce' => wp_create_nonce('jc_wishlist_nonce'),
+            'cartCount'     => jc_get_cart_count(),
+            'cartTotal'     => jc_get_cart_total(),
+            'wishlistCount' => function_exists('jc_get_wishlist_count') ? jc_get_wishlist_count() : 0,
+            'isLoggedIn'    => is_user_logged_in(),
+            'myAccountUrl'  => function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url(),
+            'wishlistUrl'   => function_exists('wc_get_page_permalink') ? wc_get_page_permalink('wishlist') : home_url('/wishlist'),
         )
     );
 }

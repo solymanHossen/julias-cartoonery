@@ -12,6 +12,7 @@ $theme_includes = [
     '/inc/setup.php',
     '/inc/enqueue.php',
     '/inc/helpers.php',
+    '/inc/wishlist.php',
     '/inc/ajax.php',
     '/inc/admin-dashboard.php',
     '/inc/cpt.php',

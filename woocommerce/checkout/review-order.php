@@ -8,6 +8,10 @@ defined('ABSPATH') || exit;
 ?>
 
 <div class="space-y-6">
+    <div class="rounded-[28px] border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-4 text-sm text-gray-500 dark:text-gray-400">
+        <?php esc_html_e('Your order summary updates automatically as cart changes are made.', 'julias-cartoonery'); ?>
+    </div>
+
     <div class="space-y-3">
         <?php do_action('woocommerce_review_order_before_cart_contents'); ?>
 

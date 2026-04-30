@@ -3,9 +3,11 @@ import '../css/app.css';
 document.addEventListener('DOMContentLoaded', () => {
     const ajaxConfig = window.jcTheme || {};
     const cartCountNodes = () => document.querySelectorAll('.js-jc-cart-count');
+    const wishlistCountNodes = () => document.querySelectorAll('.js-jc-wishlist-count');
     const miniCartContentNodes = () => document.querySelectorAll('.js-jc-mini-cart-content');
     const cartItemsWrapper = document.getElementById('jc-cart-items');
     const cartSummaryWrapper = document.getElementById('jc-cart-summary');
+    const wishlistItemsWrapper = document.getElementById('jc-wishlist-items');
     const miniCartPanel = document.getElementById('jc-mini-cart-panel');
 
     const ensureToastRoot = () => {
@@ -39,6 +41,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const setWishlistCount = (count) => {
+        wishlistCountNodes().forEach((node) => {
+            node.textContent = count;
+            if (count > 0) {
+                node.classList.remove('hidden');
+            } else {
+                node.classList.add('hidden');
+            }
+        });
+    };
+
+    const setWishlistButtonState = (button, inWishlist) => {
+        if (!button) {
+            return;
+        }
+
+        button.dataset.jcInWishlist = inWishlist ? '1' : '0';
+        button.setAttribute('aria-pressed', inWishlist ? 'true' : 'false');
+        button.setAttribute('aria-label', inWishlist ? 'Remove from wishlist' : 'Add to wishlist');
+        button.classList.toggle('text-[#FFB7C5]', inWishlist);
+        button.classList.toggle('dark:text-pink-400', inWishlist);
+        button.classList.toggle('text-gray-400', !inWishlist);
+    };
+
+    const applyWishlistPayload = (payload) => {
+        if (typeof payload.wishlist_count !== 'undefined') {
+            setWishlistCount(payload.wishlist_count);
+        }
+
+        if (payload.wishlist_items && wishlistItemsWrapper) {
+            wishlistItemsWrapper.innerHTML = payload.wishlist_items;
+        }
+
+        if (typeof payload.product_id !== 'undefined') {
+            document.querySelectorAll(`[data-jc-wishlist-toggle][data-product-id="${payload.product_id}"]`).forEach((button) => {
+                setWishlistButtonState(button, !!payload.in_wishlist);
+            });
+        }
+    };
+
     const applyCartPayload = (payload) => {
         if (typeof payload.cart_count !== 'undefined') {
             setCartCount(payload.cart_count);
@@ -66,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const body = new URLSearchParams({
             action,
-            nonce: ajaxConfig.nonce || '',
+            nonce: ajaxConfig.cartNonce || ajaxConfig.nonce || '',
             ...data,
         });
 
@@ -85,6 +127,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         applyCartPayload(json.data || {});
+        return json.data || {};
+    };
+
+    const sendWishlistRequest = async (action, data = {}) => {
+        if (!ajaxConfig.ajaxUrl) {
+            throw new Error('AJAX is not configured.');
+        }
+
+        const body = new URLSearchParams({
+            action,
+            nonce: ajaxConfig.wishlistNonce || '',
+            ...data,
+        });
+
+        const response = await fetch(ajaxConfig.ajaxUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
+            body,
+        });
+
+        const json = await response.json();
+
+        if (!json.success) {
+            const error = new Error(json?.data?.message || 'Request failed.');
+            error.data = json?.data || {};
+            throw error;
+        }
+
+        applyWishlistPayload(json.data || {});
         return json.data || {};
     };
 
@@ -184,6 +257,42 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const wishlistToggle = event.target.closest('[data-jc-wishlist-toggle]');
+        if (wishlistToggle) {
+            event.preventDefault();
+
+            const authUrl = wishlistToggle.getAttribute('data-jc-auth-url') || ajaxConfig.myAccountUrl || '/my-account';
+
+            if (!ajaxConfig.isLoggedIn) {
+                window.location.href = authUrl;
+                return;
+            }
+
+            const productId = wishlistToggle.getAttribute('data-product-id');
+            if (!productId) {
+                return;
+            }
+
+            wishlistToggle.disabled = true;
+
+            try {
+                const payload = await sendWishlistRequest('jc_toggle_wishlist', {
+                    product_id: productId,
+                });
+                showToast(payload.in_wishlist ? 'Saved to wishlist' : 'Removed from wishlist');
+            } catch (error) {
+                if (error?.data?.login_url) {
+                    window.location.href = error.data.login_url;
+                    return;
+                }
+                showToast(error.message, 'error');
+            } finally {
+                wishlistToggle.disabled = false;
+            }
+
+            return;
+        }
+
         const addToCartButton = event.target.closest('[data-jc-add-to-cart]');
         if (addToCartButton) {
             event.preventDefault();
@@ -271,5 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast(error.message, 'error');
         }
     });
+
+    setWishlistCount(ajaxConfig.wishlistCount || 0);
 
 });
