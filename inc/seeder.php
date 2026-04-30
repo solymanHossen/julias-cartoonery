@@ -86,9 +86,21 @@ function jc_seed_products() {
             'cat' => 'Soft Toys'
         ),
         array(
+            'name' => 'Sleepy Bunny Plush',
+            'price' => '21.00',
+            'desc' => 'A pastel bedtime bunny made for cozy hugs and naps.',
+            'cat' => 'Soft Toys'
+        ),
+        array(
             'name' => 'Rainbow Stacking Rings',
             'price' => '15.50',
             'desc' => 'A classic educational toy that develops fine motor skills and color recognition.',
+            'cat' => 'Educational'
+        ),
+        array(
+            'name' => 'Alphabet Blocks',
+            'price' => '18.00',
+            'desc' => 'Wooden blocks with friendly letters for early learning.',
             'cat' => 'Educational'
         ),
         array(
@@ -102,6 +114,12 @@ function jc_seed_products() {
             'price' => '22.00',
             'desc' => 'Introduce your child to the world of music with this colorful xylophone.',
             'cat' => 'Musical'
+        ),
+        array(
+            'name' => 'Pastel Teether Set',
+            'price' => '12.99',
+            'desc' => 'Gentle silicone teethers in soft baby-friendly colors.',
+            'cat' => 'Teethers'
         )
     );
 
@@ -128,7 +146,9 @@ function jc_seed_videos() {
     $long_videos = array(
         'Learn the Alphabet with Animals',
         'Counting to 10 in Space',
-        'The Colors of the Rainbow'
+        'The Colors of the Rainbow',
+        'Morning Songs with Ollie',
+        'Bedtime Stories for Little Dreamers'
     );
     
     foreach ($long_videos as $title) {
@@ -147,7 +167,9 @@ function jc_seed_videos() {
         'Learn to Draw a Star',
         'Sing a ABC Song',
         'Make a Paper Boat',
-        'Guess the Animal Sound'
+        'Guess the Animal Sound',
+        'Five Colors in Five Seconds',
+        'Tiny Dance Break'
     );
 
     foreach ($short_videos as $title) {
@@ -169,7 +191,9 @@ function jc_seed_stories() {
         'The Brave Little Star',
         'Oliver\'s Magic Garden',
         'The Whispering Woods',
-        'A Journey to the Moon'
+        'A Journey to the Moon',
+        'The Little Blue Cloud',
+        'Pip and the Rainy Day'
     );
 
     $story_content = "Once upon a time, in a land far, far away... <!--nextpage--> They journeyed through the magical forest... <!--nextpage--> And they all lived happily ever after!";
@@ -188,7 +212,7 @@ function jc_seed_stories() {
  * Seed Characters
  */
 function jc_seed_characters() {
-    $characters = array('Leo the Lion', 'Bella the Bunny', 'Oliver the Owl', 'Daisy the Duck', 'Sammy the Squirrel', 'Penny the Penguin', 'Milo the Monkey', 'Tina the Turtle');
+    $characters = array('Leo the Lion', 'Bella the Bunny', 'Oliver the Owl', 'Daisy the Duck', 'Sammy the Squirrel', 'Penny the Penguin', 'Milo the Monkey', 'Tina the Turtle', 'Ollie the Bear', 'Pip the Penguin');
 
     foreach ($characters as $name) {
         wp_insert_post(array(

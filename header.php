@@ -76,14 +76,12 @@ if (!defined('ABSPATH')) {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
             </a>
 
-            <a href="<?php echo esc_url(function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart')); ?>" class="relative p-2 text-gray-500 dark:text-gray-400 hover:text-[#FFB7C5] dark:hover:text-pink-400 transition-colors group">
+            <button type="button" data-jc-mini-cart-toggle class="relative p-2 text-gray-500 dark:text-gray-400 hover:text-[#FFB7C5] dark:hover:text-pink-400 transition-colors group" aria-label="<?php esc_attr_e('Open mini cart', 'julias-cartoonery'); ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                <?php if(class_exists('WooCommerce') && function_exists('WC') && isset(WC()->cart) && WC()->cart->get_cart_contents_count() > 0): ?>
-                    <span class="absolute -top-1 -right-1 bg-red-400 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
-                        <?php echo esc_html(WC()->cart->get_cart_contents_count()); ?>
-                    </span>
-                <?php endif; ?>
-            </a>
+                <span class="js-jc-cart-count absolute -top-1 -right-1 bg-red-400 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce <?php echo (class_exists('WooCommerce') && function_exists('WC') && isset(WC()->cart) && WC()->cart->get_cart_contents_count() > 0) ? '' : 'hidden'; ?>">
+                    <?php echo esc_html((class_exists('WooCommerce') && function_exists('WC') && isset(WC()->cart)) ? WC()->cart->get_cart_contents_count() : 0); ?>
+                </span>
+            </button>
 
             <a href="<?php echo esc_url(wp_login_url()); ?>" class="p-2 text-gray-500 dark:text-gray-400 hover:text-[#B5EAD7] dark:hover:text-emerald-400 transition-colors">
                 <?php if (is_user_logged_in()) : 
@@ -104,6 +102,22 @@ if (!defined('ABSPATH')) {
         </div>
     </div>
 </header>
+
+<div id="jc-mini-cart-panel" class="fixed right-4 top-20 z-50 w-[min(92vw,24rem)] opacity-0 pointer-events-none translate-y-2 transition-all duration-300">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 overflow-hidden">
+        <div class="px-5 py-4 bg-gradient-to-r from-[#FFB7C5] to-[#A8D8EA] dark:from-pink-600 dark:to-sky-600 text-white flex items-center justify-between">
+            <div class="font-bold"><?php esc_html_e('Mini Cart', 'julias-cartoonery'); ?></div>
+            <button type="button" data-jc-mini-cart-toggle class="p-1 rounded-full hover:bg-white/20 transition-colors" aria-label="<?php esc_attr_e('Close mini cart', 'julias-cartoonery'); ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="js-jc-mini-cart-content p-4 max-h-[32rem] overflow-y-auto">
+            <?php if (class_exists('WooCommerce') && function_exists('woocommerce_mini_cart')) : ?>
+                <?php woocommerce_mini_cart(); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
 
 <div id="jc-search-overlay" class="fixed inset-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex flex-col">
     <div class="container mx-auto px-4 lg:px-8 py-6 flex items-center gap-4">

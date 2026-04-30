@@ -20,11 +20,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 
 <div class="bg-white dark:bg-slate-800 rounded-3xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-2 transition-transform duration-300 cursor-pointer border border-gray-50 dark:border-slate-700 flex flex-col h-full group" onclick="window.location.href='<?php the_permalink(); ?>'">
     <div class="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-gray-50 dark:bg-slate-700">
-        <?php 
-        echo woocommerce_get_product_thumbnail('woocommerce_thumbnail', array(
-            'class' => 'w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform duration-500'
-        )); 
-        ?>
+        <?php echo jc_get_product_thumbnail_html($product->get_id(), 'woocommerce_thumbnail', 'w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform duration-500'); ?>
         <!-- Heart/Wishlist Placeholder -->
         <button onclick="event.stopPropagation();" class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur rounded-full text-gray-400 dark:text-gray-300 hover:text-red-400 transition-colors z-10">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -55,13 +51,13 @@ if ( empty( $product ) || ! $product->is_visible() ) {
                 <?php echo $product->get_price_html(); ?>
             </span>
             
-            <a href="?add-to-cart=<?php echo esc_attr($product->get_id()); ?>" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-[#A8D8EA] dark:hover:bg-sky-500 hover:text-white transition-colors" onclick="event.stopPropagation();">
+            <button type="button" data-jc-add-to-cart data-product-id="<?php echo esc_attr($product->get_id()); ?>" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-[#A8D8EA] dark:hover:bg-sky-500 hover:text-white transition-colors" onclick="event.stopPropagation();" aria-label="<?php echo esc_attr(sprintf(__('Add %s to cart', 'julias-cartoonery'), $product->get_name())); ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="8" cy="21" r="1" />
                     <circle cx="19" cy="21" r="1" />
                     <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
                 </svg>
-            </a>
+            </button>
         </div>
     </div>
 </div>

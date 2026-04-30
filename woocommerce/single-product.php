@@ -90,11 +90,22 @@ get_header('shop'); ?>
                 </div>
 
                 <div class="mt-auto space-y-6">
-                    <?php 
-                    // Let WooCommerce handle the add to cart logic (variable, simple, external)
-                    // We just hook into it
-                    do_action('woocommerce_single_product_summary');
-                    ?>
+                    <div class="space-y-4">
+                        <?php woocommerce_template_single_add_to_cart(); ?>
+
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                            <?php if ($product->is_type('simple')) : ?>
+                                <span class="inline-flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 dark:text-emerald-400"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <?php esc_html_e('Easy one-click checkout ready', 'julias-cartoonery'); ?></span>
+                            <?php endif; ?>
+                            <?php if ($product->get_sku()) : ?>
+                                <span><?php echo esc_html(sprintf(__('SKU: %s', 'julias-cartoonery'), $product->get_sku())); ?></span>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                            <?php echo wc_get_product_category_list($product->get_id(), ', '); ?>
+                        </div>
+                    </div>
 
                     <div class="flex items-center gap-6 pt-6 border-t border-gray-100 dark:border-slate-700 text-sm text-gray-500 dark:text-gray-400">
                         <?php if ($product->is_in_stock()) : ?>
